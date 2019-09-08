@@ -10,4 +10,4 @@ COPY chromecastize.sh /usr/local/bin/chromecastize.sh
 COPY config.sh /config/config.sh
 RUN chmod +x /usr/local/bin/chromecastize.sh
 
-ENTRYPOINT /usr/local/bin/chromecastize.sh
+ENTRYPOINT ["/usr/local/bin/chromecastize.sh"]
