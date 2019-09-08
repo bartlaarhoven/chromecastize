@@ -6,8 +6,8 @@ RUN apt-get update && apt-get install -y ffmpeg mediainfo \
 ENV CONFIG_DIRECTORY /config
 VOLUME /config
 
-COPY chromecastize.sh .
+COPY chromecastize.sh /usr/local/bin/chromecastize.sh
 COPY config.sh /config/config.sh
-RUN chmod +x chromecastize.sh
+RUN chmod +x /usr/local/bin/chromecastize.sh
 
-ENTRYPOINT chromecastize.sh
+ENTRYPOINT /usr/local/bin/chromecastize.sh
