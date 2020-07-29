@@ -4,7 +4,7 @@
 # CONFIG #
 ##########
 : "${CONFIG_DIRECTORY:=~/.chromecastize}"
-SUPPORTED_EXTENSIONS=('mkv' 'avi' 'mp4' '3gp' 'mov' 'mpg' 'mpeg' 'qt' 'wmv' 'm2ts' 'flv' 'webm')
+SUPPORTED_EXTENSIONS=('mkv' 'avi' 'mp4' '3gp' 'mov' 'mpg' 'mpeg' 'qt' 'wmv' 'm2ts' 'flv' 'webm' 'm4v')
 
 SUPPORTED_GFORMATS=('MPEG-4' 'Matroska' 'WebM')
 UNSUPPORTED_GFORMATS=('BDAV' 'AVI' 'Flash Video' 'DivX')
@@ -110,6 +110,9 @@ on_success() {
 	if [ "$ONSUCCESS" = "delete" ]; then
 		echo "- deleting original file"
 		rm -f "$FILENAME"
+	elif [ "$ONSUCCESS" = "keep" ]; then
+		DESTINATION_FILENAME="$FILENAME-chromecast.$OUTPUT_GFORMAT"
+		echo "- keeping original file; creating $DESTINATION_FILENAME"
 	else
 		echo "- renaming original file as '$FILENAME.bak'"
 		mv "$FILENAME" "$FILENAME.bak"	
