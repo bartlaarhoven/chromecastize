@@ -115,6 +115,11 @@
 #  - keep - will keep the original file and create a new converted file with the '-chromecast' suffix
 #ONSUCCESS=bak
 
+# When an unsupported codec or format is detected, chromecastize can do one of the following:
+#  - error (default) - will exit with a status code of 1
+#  - ignore - ignore the fact that the codec is not recognized and try to convert it anyways
+#UNSUPPORTED_ACTION=error
+
 # Suggested options for Chromecast Gen. 1 and Gen 2.
 #SUPPORTED_GFORMATS=('MPEG-4' 'Matroska' 'WebM')
 #DEFAULT_GFORMAT=mkv

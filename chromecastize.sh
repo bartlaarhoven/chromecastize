@@ -16,6 +16,7 @@ SUPPORTED_ACODECS=('AAC' 'MPEG Audio' 'Vorbis' 'Ogg' 'Opus')
 UNSUPPORTED_ACODECS=('AC-3' 'DTS' 'E-AC-3' 'PCM' 'TrueHD')
 
 ONSUCCESS=bak
+UNSUPPORTED_ACTION=error
 
 DEFAULT_VCODEC=h264
 # 1st and 2nd generation chromecasts and home hub https://developers.google.com/cast/docs/media
@@ -49,6 +50,11 @@ print_help() {
 
 unknown_codec() {
 	echo "'$1' is an unknown codec. Please add it to the list in a CONFIG section."
+	if [ "$UNSUPPORTED_ACTION" = "ignore" ]; then
+		return 0
+	else
+		return 1
+	fi
 }
 
 missing_config_directory() {
@@ -59,23 +65,21 @@ missing_config_directory() {
 is_supported_gformat() {
 	if in_array "$1" "${SUPPORTED_GFORMATS[@]}"; then
 		return 0
-	elif in_array "$1" "${UNSUPPORTED_GFORMATS[@]}"; then
-		return 1
-	else
-		unknown_codec "$1"
-		exit 1
+	elif ! in_array "$1" "${UNSUPPORTED_GFORMATS[@]}"; then
+		unknown_codec "$1" || exit 1
 	fi
+
+	return 1
 }
 
 is_supported_vcodec() {
 	if in_array "$1" "${SUPPORTED_VCODECS[@]}"; then
 		return 0
-	elif in_array "$1" "${UNSUPPORTED_VCODECS[@]}"; then
-		return 1
-	else
-		unknown_codec "$1"
-		exit 1
+	elif ! in_array "$1" "${UNSUPPORTED_VCODECS[@]}"; then
+		unknown_codec "$1" || exit 1
 	fi
+
+	return 1
 }
 
 is_supported_acodec() {
@@ -85,12 +89,11 @@ is_supported_acodec() {
 		return 1
 	elif in_array "$1" "${SUPPORTED_ACODECS[@]}"; then
 		return 0
-	elif in_array "$1" "${UNSUPPORTED_ACODECS[@]}"; then
-		return 1
-	else
-		unknown_codec "$1"
-		exit 1
+	elif ! in_array "$1" "${UNSUPPORTED_ACODECS[@]}"; then
+		unknown_codec "$1" || exit 1
 	fi
+
+	return 1
 }
 
 is_supported_ext() {
@@ -256,6 +259,9 @@ while :; do
 			;;
 		--delete-on-success)
 			ONSUCCESS=delete
+			;;
+		--ignore-unsupported)
+			UNSUPPORTED_ACTION=ignore
 			;;
 		--force-aencode)
 			FORCE_AENCODE=1
