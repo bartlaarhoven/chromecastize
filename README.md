@@ -16,7 +16,7 @@ Install requirements by running e.g. `apt-get install ffmpeg mediainfo` (Debian)
 Usage
 -----
 ```
-./chromecastize.sh [--mp4 | --mkv | --stereo | --delete-on-success | --force-vencode | --force-aencode | --config=/path/to/config] <videofile1> [videofile2 ...]
+./chromecastize.sh [--mp4 | --mkv | --stereo | --delete-on-success | --ignore-unsupported | --force-vencode | --force-aencode | --config=/path/to/config] <videofile1> [videofile2 ...]
 ```
 
 ### Examples:
