@@ -120,6 +120,12 @@
 #  - ignore - ignore the fact that the codec is not recognized and try to convert it anyways
 #UNSUPPORTED_ACTION=error
 
+# The log level
+#  - debug - will log every file that chromecastize finds, including ones that were already processed or
+#            are not a valid video file
+#  - info - will only log files that are video files and are new
+#LOG_LEVEL=debug
+
 # Suggested options for Chromecast Gen. 1 and Gen 2.
 #SUPPORTED_GFORMATS=('MPEG-4' 'Matroska' 'WebM')
 #DEFAULT_GFORMAT=mkv
